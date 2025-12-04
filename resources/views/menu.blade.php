@@ -149,6 +149,11 @@
         .slider.round:before {
             border-radius: 50%;
         }
+
+
+        .card-header {
+            border-bottom: 1px solid #f1f1f1 !important;
+        }
     </style>
 
 
@@ -359,21 +364,11 @@
                                     <a href="javascript:void(0)">Pages</a>
                                 </li>
 
-                                {{-- <li class="slide">
+                                <li class="slide">
 
-                                    <a href="{{ route('tipo_ingreso.index') }}" id="tipoIngresoOption"
-                                        class="side-menu__item">Tipos de ingreso</a>
+                                    <a href="{{ url('color') }}" id="colorOption" class="side-menu__item">Color</a>
 
-                                    <a href="{{ route('agente_tributario.index') }}" id="agenteTributarioOption"
-                                        class="side-menu__item">Agentes tributarios</a>
-
-                                    <a href="{{ route('banco.index') }}" id="bancoOption"
-                                        class="side-menu__item">Banco</a>
-
-
-
-
-                                </li> --}}
+                                </li>
 
                             </ul>
                         </li>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\activo\EquipoController;
 use App\Http\Controllers\activo\VehiculoController;
+use App\Http\Controllers\catalogo\ColorController;
 use App\Http\Controllers\MigracionController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,5 +22,12 @@ Route::post('/vehiculo/reporte_inventario', [EquipoController::class, 'reporteIn
 Route::post('/equipo/reporte_inventario', [EquipoController::class, 'reporteInventario'])->name('equipo.reporteInventario');
 Route::get('/equipo/load_empleados/{id}', [EquipoController::class, 'loadEmpleados'])->name('equipo.loadEmpleados');
 Route::get('/equipo/load_subclases/{id}', [EquipoController::class, 'loadSubclases'])->name('equipo.loadSubclases');
+
+
+Route::resource('/color', ColorController::class);
+
+
+
+
 Route::resource('/equipo', EquipoController::class);
 Route::resource('/vehiculo', VehiculoController::class);
