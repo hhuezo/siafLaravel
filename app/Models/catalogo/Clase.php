@@ -4,7 +4,9 @@ namespace App\Models\catalogo;
 
 use App\Models\activo\Equipo;
 use App\Models\activo\Vehiculo;
+use App\Models\general\Grupo;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Clase extends Model
@@ -12,6 +14,12 @@ class Clase extends Model
     protected $table = 'clase';
 
     protected $fillable = ['descripcion', 'codigo', 'grupo_id', 'vida_util', 'oid', 'gc_record', 'user_id'];
+
+    public function grupo(): BelongsTo
+    {
+        return $this->belongsTo(Grupo::class, 'grupo_id');
+    }
+
 
     public function subclases(): HasMany
     {

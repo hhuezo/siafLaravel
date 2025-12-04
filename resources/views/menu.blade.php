@@ -368,6 +368,8 @@
 
                                     <a href="{{ url('color') }}" id="colorOption" class="side-menu__item">Color</a>
 
+                                     <a href="{{ url('clase') }}" id="claseOption" class="side-menu__item">Clase</a>
+
                                 </li>
 
                             </ul>
