@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\activo\EquipoController;
 use App\Http\Controllers\activo\VehiculoController;
+use App\Http\Controllers\catalogo\AmbienteController;
 use App\Http\Controllers\catalogo\ClaseController;
 use App\Http\Controllers\catalogo\ColorController;
+use App\Http\Controllers\catalogo\EstadoFisicoController;
 use App\Http\Controllers\MigracionController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,7 +29,8 @@ Route::get('/equipo/load_subclases/{id}', [EquipoController::class, 'loadSubclas
 
 Route::resource('/color', ColorController::class);
 Route::resource('/clase', ClaseController::class);
-
+Route::resource('/ambiente', AmbienteController::class);
+Route::resource('/estado_fisico', EstadoFisicoController::class);
 
 
 Route::resource('/equipo', EquipoController::class);
