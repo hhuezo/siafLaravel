@@ -11,7 +11,7 @@
             <div class="card custom-card">
                 <div class="card-header justify-content-between">
                     <div class="card-title">
-                        Listado de Subclase
+                        Listado de Cuentas Contables
                     </div>
                     <div class="prism-toggle">
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-create">Nuevo</button>
@@ -38,17 +38,15 @@
                                     <th>#</th>
                                     <th>Descripción</th>
                                     <th>Codigo</th>
-                                    <th>Clase</th>
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($subclases as $item)
+                                @foreach ($cuentas_contables as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->descripcion }}</td>
                                         <td>{{ $item->codigo }}</td>
-                                        <td>{{ $item->clase->descripcion ?? '' }}</td>
                                         <td>
 
                                             <button class="btn btn-sm btn-info btn-wave" data-bs-toggle="modal"
@@ -61,8 +59,8 @@
 
                                         </td>
                                     </tr>
-                                    @include('catalogo.subclase.edit')
-                                    @include('catalogo.subclase.delete')
+                                    @include('catalogo.cuenta_contable.edit')
+                                    @include('catalogo.cuenta_contable.delete')
                                 @endforeach
 
                             </tbody>
@@ -80,10 +78,10 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLgLabel">Crear Subclase</h6>
+                    <h6 class="modal-title" id="exampleModalLgLabel">Crear Cuentas Contables</h6>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="POST" action="{{ route('ambiente.store') }}">
+                <form method="POST" action="{{ route('cuenta_contable.store') }}">
                     @csrf
                     <div class="modal-body">
                         <div class="row gy-4">
@@ -99,14 +97,6 @@
                                     value="{{ old('codigo', $item->codigo ?? '') }}">
                             </div>
 
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                <label for="input-label" class="form-label">Clase</label>
-                                <select name="clase_id" class="form-select">
-                                    @foreach ($clases as $clase)
-                                        <option value="{{ $clase->id }}">{{ $clase->descripcion }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
                         </div>
                     </div>
 
@@ -121,13 +111,14 @@
 
 
 
+
     <script src="{{ asset('assets/libs/dataTables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/libs/dataTables/dataTables.bootstrap5.min.js') }}"></script>
 
     <!-- Activar DataTable -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            expandMenuAndHighlightOption('catalogoMenu', 'subclaseOption');
+            expandMenuAndHighlightOption('catalogoMenu', 'cuenta_contableOption');
 
             $('#datatable-basic').DataTable({
                 language: {

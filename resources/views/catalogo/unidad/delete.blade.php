@@ -4,7 +4,7 @@
 
             <div class="modal-header">
                 <h6 class="modal-title" id="modalDeleteLabel{{ $item->id }}">
-                    Eliminar Fuente
+                    Eliminar Unidad
                 </h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -20,7 +20,7 @@
                     Cancelar
                 </button>
 
-                <form method="POST" action="{{ route('fuente.destroy', $item->id) }}">
+                <form method="POST" action="{{ route('unidad.destroy', $item->id) }}">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">

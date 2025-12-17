@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\catalogo;
 
 use App\Http\Controllers\Controller;
+use App\Models\catalogo\Clase;
 use App\Models\catalogo\SubClase;
 use Illuminate\Http\Request;
 
@@ -12,10 +13,13 @@ class SubClaseController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $subclases = SubClase::get();
+    { {
+            $subclases = SubClase::get();
+            $clases = Clase::get();
 
-        return view('catalogo.subclase.index', compact('subclases'));
+            return view('catalogo.subclase.index', compact('subclases', 'clases'));
+        }
+
         //
     }
 
@@ -33,17 +37,29 @@ class SubClaseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'descripcion' => 'required|unique:subclase,descripcion'
+
+            'descripcion' => 'required|unique:subclase,descripcion',
+            'codigo'      => 'required|unique:subclase,codigo',
+            'clase_id'    => 'required|exists:clase,id',
         ], [
+
             'descripcion.required' => 'La descripción es obligatoria.',
             'descripcion.unique'   => 'Ya existe una subclase con esta descripción.',
+            'codigo.required'      => 'El código es obligatorio.',
+            'codigo.unique'        => 'Ya existe una subclase con este código.',
+            'clase_id.required'    => 'Debe seleccionar una clase.',
+            'clase_id.exists'      => 'La clase seleccionada no es válida.',
         ]);
 
         $subclase = new SubClase();
         $subclase->descripcion = $request->descripcion;
+        $subclase->codigo      = $request->codigo;
+        $subclase->clase_id    = $request->clase_id;
         $subclase->save();
 
-        return back()->with('success', 'Registro creado correctamente');
+        return back()->with('success', 'Subclase creada correctamente');
+
+
         //
     }
 
@@ -58,25 +74,33 @@ class SubClaseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-
-    }
+    public function edit(string $id) {}
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-         $request->validate([
-            'descripcion' => 'required|unique:subclase,descripcion,' . $id
+        $request->validate([
+
+            'descripcion' => 'required|unique:subclase,descripcion',
+            'codigo'      => 'required|unique:subclase,codigo',
+            'clase_id'    => 'required|exists:clase,id',
         ], [
+
             'descripcion.required' => 'La descripción es obligatoria.',
             'descripcion.unique'   => 'Ya existe una subclase con esta descripción.',
+            'codigo.required'      => 'El código es obligatorio.',
+            'codigo.unique'        => 'Ya existe una subclase con este código.',
+            'clase_id.required'    => 'Debe seleccionar una clase.',
+            'clase_id.exists'      => 'La clase seleccionada no es válida.',
         ]);
+
 
         $subclase = SubClase::findOrFail($id);
         $subclase->descripcion = $request->descripcion;
+        $subclase->codigo      = $request->codigo;
+        $subclase->clase_id    = $request->clase_id;
         $subclase->save();
 
         return back()->with('success', 'Registro actualizado correctamente');

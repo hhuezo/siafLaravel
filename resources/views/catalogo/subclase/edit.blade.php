@@ -2,8 +2,9 @@
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
+
             <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLgLabel">Modificar SubClase</h6>
+                <h6 class="modal-title" id="exampleModalLgLabel">Modificar Subclase</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -18,6 +19,23 @@
                             <label for="input-label" class="form-label">Descripción:</label>
                             <input type="text" class="form-control" name="descripcion"
                                 value="{{ $item->descripcion }}" required>
+                        </div>
+
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <label class="form-label">Código</label>
+                                <input type="number" name="codigo" class="form-control" min="0"
+                                    value="{{ old('codigo', $item->codigo ?? '') }}">
+                            </div>
+
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <label for="input-label" class="form-label">Clase</label>
+                            <select name="clase_id" class="form-select">
+                                @foreach ($clases as $clase)
+                                    <option value="{{ $clase->id }}"
+                                        {{ $clase->id == $item->clase_id ? 'selected' : '' }}>{{ $clase->descripcion }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 

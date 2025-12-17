@@ -44,6 +44,7 @@ class UnidadController extends Controller
         $unidad->save();
 
         return back()->with('success', 'Registro creado correctamente');
+
         //
     }
 
@@ -68,6 +69,18 @@ class UnidadController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'descripcion' => 'required|unique:unidad,descripcion,' . $id
+        ], [
+            'descripcion.required' => 'La descripción es obligatoria.',
+            'descripcion.unique'   => 'Ya existe una unidad con esta descripción.',
+        ]);
+
+        $unidad = Unidad::findOrFail($id);
+        $unidad->descripcion = $request->descripcion;
+        $unidad->save();
+
+        return back()->with('success', 'Registro actualizado correctamente');
         //
     }
 
@@ -76,6 +89,7 @@ class UnidadController extends Controller
      */
     public function destroy(string $id)
     {
+
         //
     }
 }

@@ -5,8 +5,12 @@ use App\Http\Controllers\activo\VehiculoController;
 use App\Http\Controllers\catalogo\AmbienteController;
 use App\Http\Controllers\catalogo\ClaseController;
 use App\Http\Controllers\catalogo\ColorController;
+use App\Http\Controllers\catalogo\CuentaContableController;
+use App\Http\Controllers\catalogo\DepartamentoController;
 use App\Http\Controllers\catalogo\EstadoFisicoController;
 use App\Http\Controllers\catalogo\FuenteController;
+use App\Http\Controllers\catalogo\GerenciaController;
+use App\Http\Controllers\catalogo\GrupoController;
 use App\Http\Controllers\catalogo\MarcaController;
 use App\Http\Controllers\catalogo\MaterialController;
 use App\Http\Controllers\catalogo\ProcedenciaController;
@@ -45,7 +49,10 @@ Route::resource('/procedencia',ProcedenciaController::class);
 Route::resource('/subclase',SubClaseController::class);
 Route::resource('/traccion',TraccionController::class);
 Route::resource('/unidad',UnidadController::class);
-
+Route::resource('/cuenta_contable',CuentaContableController::class);
+Route::resource('/departamento',DepartamentoController::class);
+Route::resource('/gerencia',GerenciaController::class);
+Route::resource('/grupo',GrupoController::class);
 
 
 

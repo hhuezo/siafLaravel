@@ -3,11 +3,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLgLabel">Modificar Unidad</h6>
+                <h6 class="modal-title" id="exampleModalLgLabel">Modificar Departamento</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form method="POST" action="{{ route('unidad.update', $item->id) }}">
+            <form method="POST" action="{{ route('departamento.update', $item->id) }}">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
@@ -19,6 +19,13 @@
                             <input type="text" class="form-control" name="descripcion"
                                 value="{{ $item->descripcion }}" required>
                         </div>
+
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <label class="form-label">Código</label>
+                            <input type="number" name="codigo" class="form-control" min="0"
+                                value="{{ old('codigo', $item->codigo ?? '') }}">
+                        </div>
+
                     </div>
 
                 </div>

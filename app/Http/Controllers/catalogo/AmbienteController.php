@@ -60,7 +60,7 @@ class AmbienteController extends Controller
     {
 
         $request->validate([
-            'descripcion' => 'required|unique:clase,descripcion,' . $id,
+            'descripcion' => 'required|unique:ambiente,descripcion,' . $id,
             'unidad_id'    => 'required|exists:unidad,id',
         ], [
             'descripcion.required' => 'La descripción es obligatoria.',
