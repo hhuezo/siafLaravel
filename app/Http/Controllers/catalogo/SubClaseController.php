@@ -84,7 +84,7 @@ class SubClaseController extends Controller
         $request->validate([
 
             'descripcion' => 'required|unique:subclase,descripcion',
-            'codigo'      => 'required|unique:subclase,codigo',
+            'codigo'      => 'required|unique:subclase,codigo,' . $id,
             'clase_id'    => 'required|exists:clase,id',
         ], [
 

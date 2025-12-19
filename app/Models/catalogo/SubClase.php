@@ -5,11 +5,12 @@ namespace App\Models\catalogo;
 use App\Models\activo\Equipo;
 use App\Models\activo\Vehiculo;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SubClase extends Model
 {
-     protected $table = 'subclase';
+    protected $table = 'subclase';
 
     protected $fillable = ['descripcion', 'codigo', 'clase_id', 'vida_util', 'oid', 'gc_record', 'user_id'];
 
@@ -21,5 +22,8 @@ class SubClase extends Model
     public function equipos(): HasMany
     {
         return $this->hasMany(Equipo::class, 'subclase_id');
+    }
+    public function clase(): BelongsTo    {
+        return $this->belongsTo(Clase::class);
     }
 }

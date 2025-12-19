@@ -83,7 +83,7 @@
                     <h6 class="modal-title" id="exampleModalLgLabel">Crear Subclase</h6>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="POST" action="{{ route('ambiente.store') }}">
+                <form method="POST" action="{{ route('subclase.store') }}">
                     @csrf
                     <div class="modal-body">
                         <div class="row gy-4">
@@ -96,7 +96,7 @@
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                 <label class="form-label">Código</label>
                                 <input type="number" name="codigo" class="form-control" min="0"
-                                    value="{{ old('codigo', $item->codigo ?? '') }}">
+                                    value="{{ old('codigo') }}">
                             </div>
 
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
