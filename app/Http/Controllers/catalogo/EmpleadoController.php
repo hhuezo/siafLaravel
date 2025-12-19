@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\catalogo;
 
 use App\Http\Controllers\Controller;
+use App\Models\catalogo\Ambiente;
+use App\Models\catalogo\Departamento;
+use App\Models\catalogo\Empleado;
+use App\Models\catalogo\Gerencia;
 use Illuminate\Http\Request;
 
 class EmpleadoController extends Controller
@@ -12,6 +16,14 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
+        $empleados = Empleado::get();
+        $ambientes = Ambiente::get();
+        $gerencias = Gerencia::get();
+        $departamentos = Departamento::get();
+
+
+
+        return view('catalogo.empleado.index', compact('empleados', 'ambientes', 'gerencias', 'departamentos'));
         //
     }
 
@@ -28,6 +40,45 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nombre' => 'required|unique:empleado,nombre',
+            'codigo' => 'required|unique:empleado,codigo',
+            'ambiente_id' => 'required|exists:ambiente,id',
+            'gerencia_id' => 'required|exists:gerencia,id',
+            'departamento_id' => 'required|exists:departamento,id',
+            'activo' => 'required',
+
+
+        ], [
+            'nombre.required' => 'El nombre es obligatorio.',
+            'nombre.unique' => 'Ya existe un empleado con este nombre.',
+
+            'codigo.required' => 'El código es obligatorio.',
+            'codigo.unique' => 'Ya existe un empleado con este código.',
+
+            'ambiente_id.required' => 'Debe seleccionar un ambiente.',
+            'ambiente_id.exists' => 'El ambiente seleccionado no es válido.',
+
+            'gerencia_id.required' => 'Debe seleccionar una gerencia.',
+            'gerencia_id.exists' => 'La gerencia seleccionada no es válida.',
+
+            'departamento_id.required' => 'Debe seleccionar un departamento.',
+            'departamento_id.exists' => 'El departamento seleccionado no es válido.',
+
+            'activo.required' => 'Debe seleccionar el estado del empleado.',
+        ]);
+
+        $empleado = new Empleado();
+        $empleado->nombre = $request->nombre;
+        $empleado->codigo      = $request->codigo;
+        $empleado->ambiente_id    = $request->ambiente_id;
+        $empleado->gerencia_id    = $request->gerencia_id;
+        $empleado->departamento_id    = $request->departamento_id;
+        $empleado->activo      = $request->activo;
+
+        $empleado->save();
+
+        return back()->with('success', 'Empleado creado correctamente');
         //
     }
 
@@ -52,6 +103,46 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'nombre' => 'required|unique:empleado,nombre,' . $id,
+            'codigo' => 'required|unique:empleado,codigo,' . $id,
+            'ambiente_id' => 'required|exists:ambiente,id',
+            'gerencia_id' => 'required|exists:gerencia,id',
+            'departamento_id' => 'required|exists:departamento,id',
+            'activo' => 'required',
+        ], [
+            'nombre.required' => 'El nombre es obligatorio.',
+            'nombre.unique' => 'Ya existe un empleado con este nombre.',
+
+            'codigo.required' => 'El código es obligatorio.',
+            'codigo.unique' => 'Ya existe un empleado con este código.',
+
+            'ambiente_id.required' => 'Debe seleccionar un ambiente.',
+            'ambiente_id.exists' => 'El ambiente seleccionado no es válido.',
+
+            'gerencia_id.required' => 'Debe seleccionar una gerencia.',
+            'gerencia_id.exists' => 'La gerencia seleccionada no es válida.',
+
+            'departamento_id.required' => 'Debe seleccionar un departamento.',
+            'departamento_id.exists' => 'El departamento seleccionado no es válido.',
+
+            'activo.required' => 'Debe seleccionar el estado del empleado.',
+        ]);
+
+
+        $empleado = Empleado::findOrFail($id);
+        $empleado->nombre = $request->nombre;
+        $empleado->codigo      = $request->codigo;
+        $empleado->ambiente_id    = $request->ambiente_id;
+        $empleado->gerencia_id    = $request->gerencia_id;
+        $empleado->departamento_id    = $request->departamento_id;
+        $empleado->activo      = $request->activo;
+
+        $empleado->save();
+
+        return back()->with('success', 'Registro actualizado correctamente');
+
+
         //
     }
 
@@ -60,6 +151,10 @@ class EmpleadoController extends Controller
      */
     public function destroy(string $id)
     {
+        $empleado = Empleado::findOrFail($id);
+        $empleado->delete();
+
+        return back()->with('success', 'Empleado eliminado correctamente');
         //
     }
 }

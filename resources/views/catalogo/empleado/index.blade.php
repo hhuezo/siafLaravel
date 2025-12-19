@@ -11,7 +11,7 @@
             <div class="card custom-card">
                 <div class="card-header justify-content-between">
                     <div class="card-title">
-                        Listado de Subclase
+                        Listado de Empleado
                     </div>
                     <div class="prism-toggle">
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-create">Nuevo</button>
@@ -36,19 +36,25 @@
                             <thead class="table-dark">
                                 <tr>
                                     <th>#</th>
-                                    <th>Descripción</th>
                                     <th>Codigo</th>
-                                    <th>Clase</th>
+                                    <th>Nombre</th>
+                                    <th>Ambiente</th>
+                                    <th>Gerencia</th>
+                                    <th>Departamento</th>
+                                    <th>Activo</th>
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($subclases as $item)
+                                @foreach ($empleados as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->descripcion }}</td>
                                         <td>{{ $item->codigo }}</td>
-                                        <td>{{ $item->clase->descripcion ?? '' }}</td>
+                                        <td>{{ $item->nombre }}</td>
+                                        <td>{{ $item->ambiente->descripcion ?? '' }}</td>
+                                        <td>{{ $item->gerencia->descripcion ?? '' }}</td>
+                                        <td>{{ $item->departamento->descripcion ?? '' }}</td>
+                                        <td>{{ $item->activo }}</td>
                                         <td>
 
                                             <button class="btn btn-sm btn-info btn-wave" data-bs-toggle="modal"
@@ -61,8 +67,8 @@
 
                                         </td>
                                     </tr>
-                                    @include('catalogo.subclase.edit')
-                                    @include('catalogo.subclase.delete')
+                                    @include('catalogo.empleado.edit')
+                                    @include('catalogo.empleado.delete')
                                 @endforeach
 
                             </tbody>
@@ -80,18 +86,13 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLgLabel">Crear Subclase</h6>
+                    <h6 class="modal-title" id="exampleModalLgLabel">Crear Empleado</h6>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="POST" action="{{ route('unidad.store') }}">
+                <form method="POST" action="{{ route('empleado.store') }}">
                     @csrf
                     <div class="modal-body">
                         <div class="row gy-4">
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                <label for="input-label" class="form-label">Descripción</label>
-                                <input type="text" class="form-control" name="descripcion"
-                                    value="{{ old('descripcion') }}" required>
-                            </div>
 
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                 <label class="form-label">Código</label>
@@ -99,12 +100,49 @@
                                     value="{{ old('codigo', $item->codigo ?? '') }}">
                             </div>
 
+
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                <label for="input-label" class="form-label">Clase</label>
-                                <select name="clase_id" class="form-select">
-                                    @foreach ($clases as $clase)
-                                        <option value="{{ $clase->id }}">{{ $clase->descripcion }}</option>
+                                <label for="input-label" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" name="nombre" value="{{ old('nombre') }}"
+                                    required>
+                            </div>
+
+
+
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <label for="input-label" class="form-label">Ambiente</label>
+                                <select name="ambiente_id" class="form-select">
+                                    @foreach ($ambientes as $ambiente)
+                                        <option value="{{ $ambiente->id }}">{{ $ambiente->descripcion }}</option>
                                     @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <label for="input-label" class="form-label">Gerencia</label>
+                                <select name="gerencia_id" class="form-select">
+                                    @foreach ($gerencias as $gerencia)
+                                        <option value="{{ $gerencia->id }}">{{ $gerencia->descripcion }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <label for="input-label" class="form-label">Departamento</label>
+                                <select name="departamento_id" class="form-select">
+                                    @foreach ($departamentos as $departamento)
+                                        <option value="{{ $departamento->id }}">{{ $departamento->descripcion }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="form-label">Activo</label>
+                                <select name="activo" class="form-select">
+                                    <option value="1" {{ old('activo', $item->activo ?? '') == 1 ? 'selected' : '' }}>
+                                        Activo</option>
+                                    <option value="0" {{ old('activo', $item->activo ?? '') == 0 ? 'selected' : '' }}>
+                                        Inactivo</option>
                                 </select>
                             </div>
                         </div>
@@ -127,7 +165,7 @@
     <!-- Activar DataTable -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            expandMenuAndHighlightOption('catalogoMenu', 'subclaseOption');
+            expandMenuAndHighlightOption('catalogoMenu', 'empleadoOption');
 
             $('#datatable-basic').DataTable({
                 language: {

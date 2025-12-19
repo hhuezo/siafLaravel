@@ -7,6 +7,7 @@ use App\Http\Controllers\catalogo\ClaseController;
 use App\Http\Controllers\catalogo\ColorController;
 use App\Http\Controllers\catalogo\CuentaContableController;
 use App\Http\Controllers\catalogo\DepartamentoController;
+use App\Http\Controllers\catalogo\EmpleadoController;
 use App\Http\Controllers\catalogo\EstadoFisicoController;
 use App\Http\Controllers\catalogo\FuenteController;
 use App\Http\Controllers\catalogo\GerenciaController;
@@ -53,6 +54,7 @@ Route::resource('/cuenta_contable',CuentaContableController::class);
 Route::resource('/departamento',DepartamentoController::class);
 Route::resource('/gerencia',GerenciaController::class);
 Route::resource('/grupo',GrupoController::class);
+Route::resource('/empleado',EmpleadoController::class);
 
 
 
