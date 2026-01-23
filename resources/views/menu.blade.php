@@ -260,6 +260,14 @@
                                     href="chat.html"><i
                                         class="fe fe-help-circle p-1 rounded-circle bg-primary-transparent set me-2 fs-16"></i>Help</a>
                             </li> --}}
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="javascript:void(0);"
+                                    data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                                    <i
+                                        class="fe fe-key p-1 rounded-circle bg-primary-transparent ut me-2 fs-16"></i>Cambiar
+                                    contraseña
+                                </a>
+                            </li>
                             <li><a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
@@ -365,11 +373,21 @@
                                 </li>
 
                                 <li class="slide">
-
                                     <a href="{{ url('color') }}" id="colorOption" class="side-menu__item">Color</a>
-
-                                     <a href="{{ url('clase') }}" id="claseOption" class="side-menu__item">Clase</a>
-
+                                    <a href="{{ url('clase') }}" id="claseOption" class="side-menu__item">Clase</a>
+                                    <a href="{{ url('ambiente') }}" id="ambienteOption" class="side-menu__item">Ambiente</a>
+                                    <a href="{{ url('estado_fisico') }}" id="estadoFisicoOption" class="side-menu__item">Estado físico</a>
+                                    <a href="{{ url('fuente') }}" id="fuenteOption" class="side-menu__item">Fuente</a>
+                                    <a href="{{ url('marca') }}" id="marcaOption" class="side-menu__item">Marca</a>
+                                    <a href="{{ url('material') }}" id="materialOption" class="side-menu__item">Material</a>
+                                    <a href="{{ url('procedencia') }}" id="procedenciaOption" class="side-menu__item">Procedencia</a>
+                                    <a href="{{ url('subclase') }}" id="subclaseOption" class="side-menu__item">Subclase</a>
+                                    <a href="{{ url('traccion') }}" id="traccionOption" class="side-menu__item">Tracción</a>
+                                    <a href="{{ url('unidad') }}" id="unidadOption" class="side-menu__item">Unidad</a>
+                                    <a href="{{ url('cuenta_contable') }}" id="cuentaContableOption" class="side-menu__item">Cuenta contable</a>
+                                    <a href="{{ url('departamento') }}" id="departamentoOption" class="side-menu__item">Departamento</a>
+                                    <a href="{{ url('gerencia') }}" id="gerenciaOption" class="side-menu__item">Gerencia</a>
+                                    <a href="{{ url('grupo') }}" id="grupoOption" class="side-menu__item">Grupo</a>
                                 </li>
 
                             </ul>
@@ -541,6 +559,36 @@
             </div>
         </footer>
         <!-- Footer End -->
+        <!-- Modal Cambiar Contraseña -->
+        <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="changePasswordModalLabel">Cambiar contraseña</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="POST" action="{{ route('password.change') }}">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Nueva contraseña</label>
+                                <input type="password" name="password" id="password" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password_confirmation" class="form-label">Confirmar nueva contraseña</label>
+                                <input type="password" name="password_confirmation" id="password_confirmation"
+                                    class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="header-responsive-search" tabindex="-1"
             aria-labelledby="header-responsive-search" aria-hidden="true">
             <div class="modal-dialog">

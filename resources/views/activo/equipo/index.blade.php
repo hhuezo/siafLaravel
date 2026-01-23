@@ -40,17 +40,6 @@
                         </div>
                     @endif
 
-                    @if (session('success'))
-                        <script>
-                            toastr.success("{{ session('success') }}");
-                        </script>
-                    @endif
-
-                    @if (session('error'))
-                        <script>
-                            toastr.error("{{ session('error') }}");
-                        </script>
-                    @endif
 
                     <div class="table-responsive">
                         <table id="datatable-equipos" class="table table-striped text-nowrap w-100">
