@@ -23,8 +23,7 @@
                         Vehiculos
                     </div>
                     <div class="prism-toggle">
-                        <button class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#modal-reporte-inventario">Nuevo</button>
+                        <a href="{{url('vehiculo/create')}}"> <button class="btn btn-primary">Nuevo</button></a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -39,20 +38,8 @@
                         </div>
                     @endif
 
-                    @if (session('success'))
-                        <script>
-                            toastr.success("{{ session('success') }}");
-                        </script>
-                    @endif
-
-                    @if (session('error'))
-                        <script>
-                            toastr.error("{{ session('error') }}");
-                        </script>
-                    @endif
-
                     <div class="table-responsive">
-                        <table id="datatable-basic" class="table table-striped text-nowrap w-100">
+                        <table id="datatable-vehiculos" class="table table-striped text-nowrap w-100">
                             <thead class="table-dark">
                                 <tr>
                                     <th>Codigo</th>
@@ -67,36 +54,6 @@
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($vehiculos as $vehiculo)
-                                    <tr>
-                                        <td>{{ $vehiculo->codigo_de_activo ?? '-' }}</td>
-                                        <td>{{ $vehiculo->clase->descripcion ?? '-' }}</td>
-                                        <td>{{ $vehiculo->subclase->descripcion ?? '-' }}</td>
-                                        <td>{{ $vehiculo->empleado->nombre ?? '-' }}</td>
-                                        <td>{{ $vehiculo->equipo ?? '-' }}</td>
-                                        <td>{{ $vehiculo->marca->descripcion ?? '-' }}</td>
-                                        <td>{{ $vehiculo->modelo ?? '-' }}</td>
-                                        <td>{{ $vehiculo->placa ?? '-' }}</td>
-                                        <td>{{ $vehiculo->color->descripcion ?? '-' }}</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a href="{{ route('vehiculo.show', $vehiculo->id) }}"
-                                                    class="btn btn-sm btn-primary">Ver</a>
-                                                <a href="{{ route('vehiculo.edit', $vehiculo->id) }}"
-                                                    class="btn btn-sm btn-warning">Editar</a>
-                                                <form action="{{ route('vehiculo.destroy', $vehiculo->id) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('¿Desea eliminar este registro?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-sm btn-danger" type="submit">Eliminar</button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -215,9 +172,55 @@
     <!-- Activar DataTable -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            expandMenuAndHighlightOption('catalogoMenu', 'bancoOption');
+            expandMenuAndHighlightOption('activosMenu', 'vehiculoOption');
 
-            $('#datatable-basic').DataTable({
+            $('#datatable-vehiculos').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('vehiculos.data') }}",
+                columns: [{
+                        data: 'codigo_de_activo',
+                        name: 'codigo_de_activo'
+                    },
+                    {
+                        data: 'clase',
+                        name: 'c.descripcion'
+                    },
+                    {
+                        data: 'subclase',
+                        name: 'sub.descripcion'
+                    },
+                    {
+                        data: 'empleado_nombre',
+                        name: 'emp.nombre'
+                    },
+                    {
+                        data: 'equipo',
+                        name: 'v.equipo'
+                    },
+                    {
+                        data: 'marca',
+                        name: 'm.descripcion'
+                    },
+                    {
+                        data: 'modelo',
+                        name: 'v.modelo'
+                    },
+                    {
+                        data: 'placa',
+                        name: 'v.placa'
+                    },
+                    {
+                        data: 'color',
+                        name: 'col.descripcion'
+                    },
+                    {
+                        data: 'acciones',
+                        name: 'acciones',
+                        orderable: false,
+                        searchable: false
+                    }
+                ],
                 language: {
                     processing: "Procesando...",
                     search: "Buscar:",
@@ -260,7 +263,7 @@
                 return;
             }
 
-            const url = `{{ route('equipo.loadSubclases', ['id' => 'ID_PLACEHOLDER']) }}`.replace('ID_PLACEHOLDER',
+            const url = `{{ route('vehiculo.loadSubclases', ['id' => 'ID_PLACEHOLDER']) }}`.replace('ID_PLACEHOLDER',
                 id);
 
             fetch(url)
@@ -286,10 +289,8 @@
                 });
         }
 
-
-
         function loadEmpleados(id) {
-            const empleadoSelect = document.getElementById('empleado_id'); // 👈 nombre corregido
+            const empleadoSelect = document.getElementById('empleado_id');
             empleadoSelect.innerHTML = '<option value="">Cargando...</option>';
 
             if (!id) {
@@ -297,7 +298,7 @@
                 return;
             }
 
-            const url = `{{ route('equipo.loadEmpleados', ['id' => 'ID_PLACEHOLDER']) }}`.replace('ID_PLACEHOLDER', id);
+            const url = `{{ route('vehiculo.loadEmpleados', ['id' => 'ID_PLACEHOLDER']) }}`.replace('ID_PLACEHOLDER', id);
 
             fetch(url)
                 .then(response => {

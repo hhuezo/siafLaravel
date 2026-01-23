@@ -417,6 +417,11 @@
                                         class="side-menu__item">Equipo</a>
                                 </li>
 
+                                <li class="slide">
+                                    <a href="{{ url('vehiculo') }}" id="vehiculoOption"
+                                        class="side-menu__item">Vehículo</a>
+                                </li>
+
 
 
                             </ul>

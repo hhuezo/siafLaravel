@@ -41,6 +41,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/equipo/load_subclases/{id}', [EquipoController::class, 'loadSubclases'])->name('equipo.loadSubclases');
     Route::get('/equipo/generar_codigo/{subclaseId}', [EquipoController::class, 'generarCodigoActivo'])->name('equipo.generarCodigo');
 
+    Route::get('/vehiculo/get_data', [VehiculoController::class, 'data'])->name('vehiculos.data');
+    Route::get('/vehiculo/load_ambientes/{id}', [VehiculoController::class, 'loadAmbientes'])->name('vehiculo.loadAmbientes');
+    Route::get('/vehiculo/load_empleados/{id}', [VehiculoController::class, 'loadEmpleados'])->name('vehiculo.loadEmpleados');
+    Route::get('/vehiculo/load_subclases/{id}', [VehiculoController::class, 'loadSubclases'])->name('vehiculo.loadSubclases');
+    Route::get('/vehiculo/generar_codigo/{subclaseId}', [VehiculoController::class, 'generarCodigoActivo'])->name('vehiculo.generarCodigo');
+
     Route::resource('/color', ColorController::class);
     Route::resource('/clase', ClaseController::class);
     Route::resource('/ambiente', AmbienteController::class);

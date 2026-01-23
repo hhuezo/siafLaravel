@@ -16,6 +16,7 @@ use App\Models\catalogo\Procedencia;
 use App\Models\catalogo\SubClase;
 use App\Models\catalogo\Traccion;
 use App\Models\catalogo\Unidad;
+use App\Models\general\Establecimiento;
 use App\Models\general\Grupo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
