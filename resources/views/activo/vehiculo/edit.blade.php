@@ -459,7 +459,73 @@
             setTimeout(function() {
                 isInitialLoad = false;
             }, 1000);
+
+            // Validación del formulario antes de enviar
+            $('#vehiculoForm').on('submit', function(e) {
+                if (!validateForm()) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
         });
+
+        function validateForm() {
+            let isValid = true;
+            
+            // Campos requeridos según las mismas reglas del create
+            const requiredFields = {
+                // Tab 1: Todos los campos son requeridos
+                tab1: ['clase_id', 'subclase_id', 'codigo_de_activo', 'vida_util', 'fuente_id', 'cuenta_contable_id', 'estado_id', 'procedencia_id'],
+                // Tab 2: Solo estos son requeridos (empleado_id, numero_de_factura, depresiable, no_depreciable NO son requeridos)
+                tab2: ['unidad_id', 'fecha_de_adquisicion', 'valor_inicial', 'ambiente_id'],
+                // Tab 3: Solo estado_fisico_id es requerido
+                tab3: ['estado_fisico_id']
+            };
+
+            // Limpiar errores previos
+            $('.is-invalid').removeClass('is-invalid');
+
+            // Validar campos de la Tab 1
+            requiredFields.tab1.forEach(function(fieldId) {
+                const field = $('#' + fieldId);
+                if (!field.val() || field.val() === '') {
+                    isValid = false;
+                    field.addClass('is-invalid');
+                }
+            });
+
+            // Validar campos de la Tab 2
+            requiredFields.tab2.forEach(function(fieldId) {
+                const field = $('#' + fieldId);
+                if (!field.val() || field.val() === '') {
+                    isValid = false;
+                    field.addClass('is-invalid');
+                }
+            });
+
+            // Validar campos de la Tab 3
+            requiredFields.tab3.forEach(function(fieldId) {
+                const field = $('#' + fieldId);
+                if (!field.val() || field.val() === '') {
+                    isValid = false;
+                    field.addClass('is-invalid');
+                }
+            });
+
+            if (!isValid) {
+                toastr.warning('Por favor, complete todos los campos requeridos antes de guardar.');
+                // Cambiar a la primera tab que tenga errores
+                if ($('#identificacion .is-invalid').length > 0) {
+                    $('#identificacion-tab').tab('show');
+                } else if ($('#ubicacion .is-invalid').length > 0) {
+                    $('#ubicacion-tab').tab('show');
+                } else if ($('#caracteristicas .is-invalid').length > 0) {
+                    $('#caracteristicas-tab').tab('show');
+                }
+            }
+
+            return isValid;
+        }
 
         function loadSubclases(id, selectedId = null) {
             const subclaseSelect = document.getElementById('subclase_id');

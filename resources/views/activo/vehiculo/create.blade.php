@@ -590,9 +590,9 @@
         function validateStep(step) {
             let isValid = true;
             const requiredFields = {
-                1: ['clase_id', 'subclase_id', 'codigo_de_activo', 'fuente_id', 'cuenta_contable_id'],
-                2: ['unidad_id', 'fecha_de_adquisicion', 'valor_inicial', 'ambiente_id', 'empleado_id'],
-                3: ['marca_id', 'modelo', 'placa', 'color_id']
+                1: ['clase_id', 'subclase_id', 'codigo_de_activo', 'vida_util', 'fuente_id', 'cuenta_contable_id', 'estado_id', 'procedencia_id'],
+                2: ['unidad_id', 'fecha_de_adquisicion', 'valor_inicial', 'ambiente_id'],
+                3: ['estado_fisico_id']
             };
 
             // Limpiar errores previos
@@ -609,7 +609,7 @@
             }
 
             if (!isValid) {
-                alert('Por favor, complete todos los campos requeridos en este paso.');
+                toastr.warning('Por favor, complete todos los campos requeridos en este paso.');
             }
 
             return isValid;
@@ -807,7 +807,7 @@
                         if (vidaUtilInput) {
                             vidaUtilInput.value = '';
                         }
-                        alert('No se pudo generar el código automáticamente');
+                        toastr.error('No se pudo generar el código automáticamente');
                     }
                     codigoActivoInput.disabled = false;
                     if (vidaUtilInput) {
@@ -824,7 +824,7 @@
                     if (vidaUtilInput) {
                         vidaUtilInput.disabled = false;
                     }
-                    alert('Error al generar el código. Por favor, verifique que la subclase tenga todos los datos necesarios.');
+                    toastr.error('Error al generar el código. Por favor, verifique que la subclase tenga todos los datos necesarios.');
                 });
         }
     </script>

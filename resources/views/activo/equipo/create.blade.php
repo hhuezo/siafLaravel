@@ -221,7 +221,7 @@
 
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                         <label for="fuente_id" class="form-label">Fuente</label>
-                                        <select name="fuente_id" id="fuente_id" class="form-select select2">
+                                        <select name="fuente_id" id="fuente_id" class="form-select">
                                             <option value="">Seleccione</option>
                                             @foreach ($fuentes as $fuente)
                                                 <option value="{{ $fuente->id }}" @selected(old('fuente_id') == $fuente->id)>
@@ -232,7 +232,7 @@
 
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                         <label for="cuenta_contable_id" class="form-label">Cuenta contable</label>
-                                        <select name="cuenta_contable_id" id="cuenta_contable_id" class="form-select select2">
+                                        <select name="cuenta_contable_id" id="cuenta_contable_id" class="form-select">
                                             <option value="">Seleccione</option>
                                             @foreach ($cuentas as $cuenta)
                                                 <option value="{{ $cuenta->id }}"
@@ -246,7 +246,7 @@
 
                                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
                                         <label for="estado_id" class="form-label">Estado</label>
-                                        <select class="form-select select2" name="estado_id" id="estado_id">
+                                        <select class="form-select" name="estado_id" id="estado_id">
                                             <option value="">Seleccione</option>
                                             @foreach ($estadosActivos as $estadoActivo)
                                                 <option value="{{ $estadoActivo->id }}"
@@ -258,7 +258,7 @@
 
                                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
                                         <label for="procedencia_id" class="form-label">Procedencia</label>
-                                        <select class="form-select select2" name="procedencia_id" id="procedencia_id">
+                                        <select class="form-select" name="procedencia_id" id="procedencia_id">
                                             <option value="">Seleccione</option>
                                             @foreach ($procedencias as $procedencia)
                                                 <option value="{{ $procedencia->id }}"
@@ -373,7 +373,7 @@
 
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                         <label for="color_id" class="form-label">Color</label>
-                                        <select class="form-select select2" name="color_id" id="color_id">
+                                        <select class="form-select" name="color_id" id="color_id">
                                             <option value="">Seleccione</option>
                                             @foreach ($colores as $color)
                                                 <option value="{{ $color->id }}" @selected(old('color_id') == $color->id)>
@@ -384,7 +384,7 @@
 
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                         <label for="material_id" class="form-label">Material</label>
-                                        <select class="form-select select2" name="material_id" id="material_id">
+                                        <select class="form-select" name="material_id" id="material_id">
                                             <option value="">Seleccione</option>
                                             @foreach ($materiales as $material)
                                                 <option value="{{ $material->id }}"
@@ -396,7 +396,7 @@
 
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                         <label for="estado_fisico_id" class="form-label">Estado Físico</label>
-                                        <select class="form-select select2" name="estado_fisico_id" id="estado_fisico_id">
+                                        <select class="form-select" name="estado_fisico_id" id="estado_fisico_id">
                                             <option value="">Seleccione</option>
                                             @foreach ($estadosFisicos as $estadoFisico)
                                                 <option value="{{ $estadoFisico->id }}"
@@ -555,9 +555,9 @@
         function validateStep(step) {
             let isValid = true;
             const requiredFields = {
-                1: ['clase_id', 'subclase_id', 'codigo_activo', 'fuente_id', 'cuenta_contable_id'],
-                2: ['unidad_id', 'fecha_adquisicion', 'valor_inicial', 'ambiente_id', 'empleado_id'],
-                3: ['marca', 'modelo', 'serie', 'color_id', 'material_id']
+                1: ['clase_id', 'subclase_id', 'codigo_activo', 'vida_util', 'fuente_id', 'cuenta_contable_id', 'estado_id', 'procedencia_id'],
+                2: ['unidad_id', 'fecha_adquisicion', 'valor_inicial', 'ambiente_id'],
+                3: ['estado_fisico_id']
             };
 
             // Limpiar errores previos
@@ -574,7 +574,7 @@
             }
 
             if (!isValid) {
-                alert('Por favor, complete todos los campos requeridos en este paso.');
+                toastr.warning('Por favor, complete todos los campos requeridos en este paso.');
             }
 
             return isValid;
@@ -767,7 +767,7 @@
                         if (vidaUtilInput) {
                             vidaUtilInput.value = '';
                         }
-                        alert('No se pudo generar el código automáticamente');
+                        toastr.error('No se pudo generar el código automáticamente');
                     }
                     codigoActivoInput.disabled = false;
                     if (vidaUtilInput) {
@@ -784,7 +784,7 @@
                     if (vidaUtilInput) {
                         vidaUtilInput.disabled = false;
                     }
-                    alert('Error al generar el código. Por favor, verifique que la subclase tenga todos los datos necesarios.');
+                    toastr.error('Error al generar el código. Por favor, verifique que la subclase tenga todos los datos necesarios.');
                 });
         }
     </script>
