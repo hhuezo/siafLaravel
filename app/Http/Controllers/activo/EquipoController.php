@@ -35,6 +35,18 @@ class EquipoController extends Controller
         return view('activo.equipo.index', compact('clases', 'fuentes', 'ambientes', 'cuentas'));
     }
 
+    /**
+     * Muestra la vista con el formulario de filtros para el reporte de inventario de equipo.
+     */
+    public function vistaReporteInventario()
+    {
+        $clases = Clase::where('id', '<>', 6)->get();
+        $fuentes = Fuente::get();
+        $ambientes = Ambiente::get();
+        $cuentas = CuentaContable::get();
+        return view('reportes.form_inventario_equipo', compact('clases', 'fuentes', 'ambientes', 'cuentas'));
+    }
+
     public function data()
     {
         $equipos = DB::table('equipo as e')
@@ -180,15 +192,16 @@ class EquipoController extends Controller
             $query->where('cuenta_contable_id', $request->cuenta_id);
         }
 
-        // 🔹 Filtrar los equipos cuya fecha de adquisición sea menor o igual a la fecha final
-        if ($request->filled('fechaFinal')) {
-            $query->whereDate('fecha_adquisicion', '<=', $request->fechaFinal);
-        }
+        $fechaFinal = $request->filled('fechaFinal')
+            ? Carbon::parse($request->fechaFinal)
+            : Carbon::now();
 
-        $equipos = $query->orderBy('codigo_activo')->get();
+        // Filtrar los equipos cuya fecha de adquisición sea menor o igual a la fecha final
+        $query->whereDate('fecha_adquisicion', '<=', $fechaFinal);
 
-        $fechaFinal = Carbon::parse($request->fechaFinal);
-        $anio = $fechaFinal->year;
+        $equipos = $query->with([
+            'subclase', 'cuentaContable', 'ambiente.unidad', 'color', 'estadoFisico', 'fuente'
+        ])->orderBy('codigo_activo')->get();
 
         foreach ($equipos as $equipo) {
             $valorInicial = $equipo->valor_inicial;
@@ -220,17 +233,14 @@ class EquipoController extends Controller
             $equipo->depresiacionAcumulada = round($depreciacionAcumulada, 2);
         }
 
-        // return view('reportes.inventario_equipo', compact('equipos'));
-
-
-        // 🔹 Generar PDF usando la vista existente
-        $pdf = Pdf::loadView('reportes.inventario_equipo', compact('equipos'))
-            ->setPaper('a4', 'landscape'); // o 'portrait' si prefieres vertical
-
-        // 🔹 Descargar el PDF
         $nombreArchivo = 'Inventario_Equipo_' . now()->format('Ymd_His') . '.pdf';
+        $pdf = Pdf::loadView('reportes.inventario_equipo', compact('equipos'))
+            ->setPaper('a4', 'landscape');
+
+        if ($request->boolean('descargar')) {
+            return $pdf->download($nombreArchivo);
+        }
         return $pdf->stream($nombreArchivo);
-        return $pdf->download($nombreArchivo);
     }
 
 

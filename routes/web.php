@@ -34,8 +34,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/migracion', [MigracionController::class, 'index']);
     Route::get('/equipo/get_data', [EquipoController::class, 'data'])->name('equipos.data');
 
-    Route::post('/vehiculo/reporte_inventario', [EquipoController::class, 'reporteInventario'])->name('vehiculo.reporteInventario');
+    Route::get('/reportes/inventario_equipo', [EquipoController::class, 'vistaReporteInventario'])->name('reportes.inventario_equipo');
     Route::post('/equipo/reporte_inventario', [EquipoController::class, 'reporteInventario'])->name('equipo.reporteInventario');
+    Route::post('/vehiculo/reporte_inventario', [EquipoController::class, 'reporteInventario'])->name('vehiculo.reporteInventario');
     Route::get('/equipo/load_ambientes/{id}', [EquipoController::class, 'loadAmbientes'])->name('equipo.loadAmbientes');
     Route::get('/equipo/load_empleados/{id}', [EquipoController::class, 'loadEmpleados'])->name('equipo.loadEmpleados');
     Route::get('/equipo/load_subclases/{id}', [EquipoController::class, 'loadSubclases'])->name('equipo.loadSubclases');

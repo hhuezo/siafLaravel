@@ -422,7 +422,10 @@
                                         class="side-menu__item">Vehículo</a>
                                 </li>
 
-
+                                <li class="slide">
+                                    <a href="{{ route('reportes.inventario_equipo') }}" id="reporteInventarioEquipoActivosOption"
+                                        class="side-menu__item">Reporte inventario equipo</a>
+                                </li>
 
                             </ul>
                         </li>
@@ -504,6 +507,11 @@
                                                 class="side-menu__item">Reporte de ventas</a>
                                         </li>
                                     @endcan
+
+                                    <li class="slide">
+                                        <a href="{{ route('reportes.inventario_equipo') }}" id="reporteInventarioEquipoOption"
+                                            class="side-menu__item">Inventario mobiliario y equipo</a>
+                                    </li>
 
                                 </ul>
                             </li>

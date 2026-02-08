@@ -23,9 +23,7 @@
                         Equipos
                     </div>
                     <div class="prism-toggle">
-                        <a href="{{url('equipo/create')}}"> <button class="btn btn-primary">Nuevo</button></a>
-                        {{-- <button class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#modal-reporte-inventario">Nuevo</button> --}}
+                        <a href="{{ url('equipo/create') }}"><button class="btn btn-primary">Nuevo</button></a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -65,108 +63,6 @@
         </div>
 
     </div>
-
-
-    <div class="modal fade" id="modal-reporte-inventario" tabindex="-1" aria-labelledby="exampleModalLgLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLgLabel">Reporte</h6>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form method="POST" action="{{ route('equipo.reporteInventario') }}">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="row gy-3">
-
-                            <div class="col-6">
-                                <label for="nombre" class="form-label">Clase</label>
-                                <select name="clase_id" onchange="loadSubclases(this.value)" class="form-select">
-                                    <option value="">Seleccione</option>
-                                    @foreach ($clases as $clase)
-                                        <option value="{{ $clase->id }}">{{ $clase->descripcion }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="col-6">
-                                <label for="nombre" class="form-label">Fuente</label>
-                                <select name="fuente_id" class="form-select">
-                                    <option value="">Seleccione</option>
-                                    @foreach ($fuentes as $fuente)
-                                        <option value="{{ $fuente->id }}">{{ $fuente->descripcion }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="col-6">
-                                <label for="nombre" class="form-label">Sub clase</label>
-                                <select name="subclase_id" id="subclase_id" class="form-select">
-                                </select>
-                            </div>
-
-
-
-                            <div class="col-6">
-                                <label for="nombre" class="form-label">Fecha desde</label>
-                                <input type="date" name="fechaInicio" class="form-control" value="{{ date('Y-m-d') }}">
-                            </div>
-
-
-
-                            <div class="col-6">
-                                <label for="nombre" class="form-label">Ambiente</label>
-
-                                <select name="ambiente_id" class="form-select" onchange="loadEmpleados(this.value)">
-                                    <option value="">Seleccione</option>
-                                    @foreach ($ambientes as $ambiente)
-                                        <option value="{{ $ambiente->id }}">{{ $ambiente->descripcion }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-
-
-                            <div class="col-6">
-                                <label for="nombre" class="form-label">Fecha hasta</label>
-                                <input type="date" name="fechaFinal" class="form-control" value="{{ date('Y-m-d') }}">
-                            </div>
-
-
-
-                            <div class="col-6">
-                                <label for="nombre" class="form-label">Empledo</label>
-                                <select name="empleado_id" id="empleado_id" class="form-select">
-                                </select>
-                            </div>
-
-
-
-                            <div class="col-6">
-                                <label for="nombre" class="form-label">Cuenta contable</label>
-                                <select name="cuenta_id" class="form-select">
-                                    <option value="">Seleccione</option>
-                                    @foreach ($cuentas as $cuenta)
-                                        <option value="{{ $cuenta->id }}">{{ $cuenta->codigo }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-
-
-
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
 
 
     <script src="{{ asset('assets/libs/dataTables/jquery.dataTables.min.js') }}"></script>
@@ -259,77 +155,6 @@
             });
 
         });
-
-        function loadSubclases(id) {
-            const subclaseSelect = document.getElementById('subclase_id');
-            subclaseSelect.innerHTML = '<option value="">Cargando...</option>';
-
-            if (!id) {
-                subclaseSelect.innerHTML = '<option value="">Seleccione una clase primero</option>';
-                return;
-            }
-
-            const url = `{{ route('equipo.loadSubclases', ['id' => 'ID_PLACEHOLDER']) }}`.replace('ID_PLACEHOLDER',
-                id);
-
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Error al obtener subclases');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    subclaseSelect.innerHTML = '<option value="">Seleccione una subclase</option>';
-
-                    data.forEach(subclase => {
-                        const option = document.createElement('option');
-                        option.value = subclase.id;
-                        option.textContent = subclase.descripcion;
-                        subclaseSelect.appendChild(option);
-                    });
-                })
-                .catch(error => {
-                    console.error(error);
-                    subclaseSelect.innerHTML = '<option value="">Error al cargar subclases</option>';
-                });
-        }
-
-
-
-        function loadEmpleados(id) {
-            const empleadoSelect = document.getElementById('empleado_id'); // 👈 nombre corregido
-            empleadoSelect.innerHTML = '<option value="">Cargando...</option>';
-
-            if (!id) {
-                empleadoSelect.innerHTML = '<option value="">Seleccione</option>';
-                return;
-            }
-
-            const url = `{{ route('equipo.loadEmpleados', ['id' => 'ID_PLACEHOLDER']) }}`.replace('ID_PLACEHOLDER', id);
-
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Error al obtener empleados');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    empleadoSelect.innerHTML = '<option value="">Seleccione un empleado</option>';
-
-                    data.forEach(empleado => {
-                        const option = document.createElement('option');
-                        option.value = empleado.id;
-                        option.textContent = empleado.nombre;
-                        empleadoSelect.appendChild(option);
-                    });
-                })
-                .catch(error => {
-                    console.error(error);
-                    empleadoSelect.innerHTML = '<option value="">Error al cargar empleados</option>';
-                });
-        }
     </script>
     <!-- End:: row-1 -->
 @endsection
