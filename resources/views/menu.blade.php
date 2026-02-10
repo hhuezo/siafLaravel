@@ -315,43 +315,42 @@
                     </div>
                     <ul class="main-menu">
 
-                        @can('menu seguridad')
-                            <!-- Start::slide -->
-                            <li class="slide has-sub" id="seguridadMenu">
-                                <a href="javascript:void(0);" class="side-menu__item">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 side-menu__icon"
-                                        fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
-                                    </svg>
-                                    <span class="side-menu__label">Seguridad</span>
-                                    <i class="ri-arrow-down-s-line side-menu__angle"></i>
-                                </a>
-                                {{-- <ul class="slide-menu child1">
-                                    <li class="slide side-menu__label1">
-                                        <a href="javascript:void(0)">Seguridad</a>
-                                    </li>
-                                    <li class="slide">
-                                        @can('read usuarios')
-                                            <a href="{{ url('seguridad/user') }}" id="usuarioOption"
-                                                class="side-menu__item">Usuarios</a>
-                                        @endcan
 
-                                        @can('read roles')
-                                            <a href="{{ url('seguridad/role') }}" id="roleOption"
-                                                class="side-menu__item">Roles</a>
-                                        @endcan
+                        <!-- Start::slide -->
+                        <li class="slide has-sub" id="seguridadMenu">
+                            <a href="javascript:void(0);" class="side-menu__item">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 side-menu__icon"
+                                    fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                                </svg>
+                                <span class="side-menu__label">Seguridad</span>
+                                <i class="ri-arrow-down-s-line side-menu__angle"></i>
+                            </a>
+                            <ul class="slide-menu child1">
+                                <li class="slide side-menu__label1">
+                                    <a href="javascript:void(0)">Seguridad</a>
+                                </li>
+                                <li class="slide">
+                                    <a href="{{ url('seguridad/user') }}" id="usuarioOption"
+                                        class="side-menu__item">Usuarios</a>
 
-                                        @can('read permisos')
-                                            <a href="{{ url('seguridad/permission') }}" id="permisoOption"
-                                                class="side-menu__item">Permisos</a>
-                                        @endcan
-                                    </li>
 
-                                </ul> --}}
-                            </li>
-                            <!-- End::slide -->
-                        @endcan
+                                    <a href="{{ url('seguridad/role') }}" id="roleOption"
+                                        class="side-menu__item">Roles</a>
+
+                                    <a href="{{ url('seguridad/permission') }}" id="permisoOption"
+                                        class="side-menu__item">Permisos</a>
+
+                                    <a href="{{ url('seguridad/permission_type') }}" id="permissionTypeOption"
+                                        class="side-menu__item">Tipos de permiso</a>
+
+                                </li>
+
+                            </ul>
+                        </li>
+                        <!-- End::slide -->
+
 
 
 
@@ -375,18 +374,29 @@
                                 <li class="slide">
                                     <a href="{{ url('color') }}" id="colorOption" class="side-menu__item">Color</a>
                                     <a href="{{ url('clase') }}" id="claseOption" class="side-menu__item">Clase</a>
-                                    <a href="{{ url('ambiente') }}" id="ambienteOption" class="side-menu__item">Ambiente</a>
-                                    <a href="{{ url('estado_fisico') }}" id="estadoFisicoOption" class="side-menu__item">Estado físico</a>
-                                    <a href="{{ url('fuente') }}" id="fuenteOption" class="side-menu__item">Fuente</a>
+                                    <a href="{{ url('ambiente') }}" id="ambienteOption"
+                                        class="side-menu__item">Ambiente</a>
+                                    <a href="{{ url('estado_fisico') }}" id="estadoFisicoOption"
+                                        class="side-menu__item">Estado físico</a>
+                                    <a href="{{ url('fuente') }}" id="fuenteOption"
+                                        class="side-menu__item">Fuente</a>
                                     <a href="{{ url('marca') }}" id="marcaOption" class="side-menu__item">Marca</a>
-                                    <a href="{{ url('material') }}" id="materialOption" class="side-menu__item">Material</a>
-                                    <a href="{{ url('procedencia') }}" id="procedenciaOption" class="side-menu__item">Procedencia</a>
-                                    <a href="{{ url('subclase') }}" id="subclaseOption" class="side-menu__item">Subclase</a>
-                                    <a href="{{ url('traccion') }}" id="traccionOption" class="side-menu__item">Tracción</a>
-                                    <a href="{{ url('unidad') }}" id="unidadOption" class="side-menu__item">Unidad</a>
-                                    <a href="{{ url('cuenta_contable') }}" id="cuentaContableOption" class="side-menu__item">Cuenta contable</a>
-                                    <a href="{{ url('departamento') }}" id="departamentoOption" class="side-menu__item">Departamento</a>
-                                    <a href="{{ url('gerencia') }}" id="gerenciaOption" class="side-menu__item">Gerencia</a>
+                                    <a href="{{ url('material') }}" id="materialOption"
+                                        class="side-menu__item">Material</a>
+                                    <a href="{{ url('procedencia') }}" id="procedenciaOption"
+                                        class="side-menu__item">Procedencia</a>
+                                    <a href="{{ url('subclase') }}" id="subclaseOption"
+                                        class="side-menu__item">Subclase</a>
+                                    <a href="{{ url('traccion') }}" id="traccionOption"
+                                        class="side-menu__item">Tracción</a>
+                                    <a href="{{ url('unidad') }}" id="unidadOption"
+                                        class="side-menu__item">Unidad</a>
+                                    <a href="{{ url('cuenta_contable') }}" id="cuentaContableOption"
+                                        class="side-menu__item">Cuenta contable</a>
+                                    <a href="{{ url('departamento') }}" id="departamentoOption"
+                                        class="side-menu__item">Departamento</a>
+                                    <a href="{{ url('gerencia') }}" id="gerenciaOption"
+                                        class="side-menu__item">Gerencia</a>
                                     <a href="{{ url('grupo') }}" id="grupoOption" class="side-menu__item">Grupo</a>
                                 </li>
 
@@ -423,8 +433,9 @@
                                 </li>
 
                                 <li class="slide">
-                                    <a href="{{ route('reportes.inventario_equipo') }}" id="reporteInventarioEquipoActivosOption"
-                                        class="side-menu__item">Reporte inventario equipo</a>
+                                    <a href="{{ route('reportes.inventario_equipo') }}"
+                                        id="reporteInventarioEquipoActivosOption" class="side-menu__item">Reporte
+                                        inventario equipo</a>
                                 </li>
 
                             </ul>
@@ -509,8 +520,9 @@
                                     @endcan
 
                                     <li class="slide">
-                                        <a href="{{ route('reportes.inventario_equipo') }}" id="reporteInventarioEquipoOption"
-                                            class="side-menu__item">Inventario mobiliario y equipo</a>
+                                        <a href="{{ route('reportes.inventario_equipo') }}"
+                                            id="reporteInventarioEquipoOption" class="side-menu__item">Inventario
+                                            mobiliario y equipo</a>
                                     </li>
 
                                 </ul>
@@ -579,7 +591,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="changePasswordModalLabel">Cambiar contraseña</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <form method="POST" action="{{ route('password.change') }}">
                         @csrf
@@ -589,13 +602,15 @@
                                 <input type="password" name="password" id="password" class="form-control" required>
                             </div>
                             <div class="mb-3">
-                                <label for="password_confirmation" class="form-label">Confirmar nueva contraseña</label>
+                                <label for="password_confirmation" class="form-label">Confirmar nueva
+                                    contraseña</label>
                                 <input type="password" name="password_confirmation" id="password_confirmation"
                                     class="form-control" required>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
                     </form>

@@ -20,6 +20,10 @@ use App\Http\Controllers\catalogo\UnidadController;
 use App\Http\Controllers\MigracionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\seguridad\PermissionController;
+use App\Http\Controllers\seguridad\PermissionTypeController;
+use App\Http\Controllers\seguridad\RoleController;
+use App\Http\Controllers\seguridad\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,6 +34,16 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/change-password', [HomeController::class, 'changePassword'])->name('password.change');
+
+
+    //seguridad
+    Route::resource('seguridad/permission_type', PermissionTypeController::class);
+    Route::resource('seguridad/permission', PermissionController::class);
+    Route::post('seguridad/role/update_permission', [RoleController::class, 'updatePermission']);
+    Route::resource('seguridad/role', RoleController::class);
+    Route::post('seguridad/user/update_password/{id}', [UserController::class, 'updatePassword']);
+    Route::put('seguridad/user/sync_rol/{user_id}/{rol_id}', [UserController::class, 'sync_rol']);
+    Route::resource('seguridad/user', UserController::class);
 
     Route::get('/migracion', [MigracionController::class, 'index']);
     Route::get('/equipo/get_data', [EquipoController::class, 'data'])->name('equipos.data');

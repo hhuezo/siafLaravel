@@ -1,11 +1,38 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-    .authentication-background {
-    background-color: rgb(199 201 203) !important;
-    }
-</style>
+    <style>
+        .authentication-background {
+            /* background-image: url('{{ asset('fondo.png') }}'); */
+            background-image: url('{{ asset('medio_logo_azul.png') }}');
+            background-size: 22%;
+            /* background-size: 50% auto; */
+            background-position: right center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            position: relative;
+            background-color: #ffffff;
+
+            /* DESVANECIDO REAL DE LA IMAGEN */
+            -webkit-mask-image: linear-gradient(to left,
+                    rgba(0, 0, 0, 1) 0%,
+                    rgba(0, 0, 0, 1) 55%,
+                    rgba(0, 0, 0, 0.6) 70%,
+                    rgba(0, 0, 0, 0.3) 85%,
+                    rgba(0, 0, 0, 0) 100%);
+            -webkit-mask-size: 100% 100%;
+            -webkit-mask-repeat: no-repeat;
+
+            mask-image: linear-gradient(to left,
+                    rgba(0, 0, 0, 1) 0%,
+                    rgba(0, 0, 0, 1) 55%,
+                    rgba(0, 0, 0, 0.6) 70%,
+                    rgba(0, 0, 0, 0.3) 85%,
+                    rgba(0, 0, 0, 0) 100%);
+            mask-size: 100% 100%;
+            mask-repeat: no-repeat;
+        }
+    </style>
     <div class="authentication-background">
         <div class="container">
             <div class="row justify-content-center align-items-center authentication authentication-basic h-100">
